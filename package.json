@@ -19,6 +19,9 @@
   "author": "ABDULLAH",
   "type": "commonjs",
   "scripts": {
+    "start":"parcel index.html",
+    "build":"parcel build index.html",
+    "dev":"npm run build && npm start",
     "test": "jest"
   },
   "dependencies": {
