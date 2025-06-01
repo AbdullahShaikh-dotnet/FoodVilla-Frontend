@@ -1,0 +1,34 @@
+{
+  "name": "learning-react",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [
+    "react",
+    "learning",
+    "react"
+  ],
+  "homepage": "https://github.com/AbdullahShaikh-dotnet/Learning_React#readme",
+  "bugs": {
+    "url": "https://github.com/AbdullahShaikh-dotnet/Learning_React/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AbdullahShaikh-dotnet/Learning_React.git"
+  },
+  "license": "ISC",
+  "author": "ABDULLAH",
+  "type": "commonjs",
+  "scripts": {
+    "test": "jest"
+  },
+  "dependencies": {
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "parcel": "^2.15.2"
+  },
+  "browserslist" :[
+    "last 2 versions"
+  ]
+}
