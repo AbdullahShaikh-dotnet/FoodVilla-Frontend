@@ -1,7 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom/client"
-
-
+import ReactDOM from "react-dom/client";
 
 // const Parent = React.createElement("div", { id: "parent" }, [
 //   React.createElement("div", { id: "Child" }, [
@@ -16,11 +14,23 @@ import ReactDOM from "react-dom/client"
 //   ]),
 // ]);
 
- const Parent = <div>
-                    <h1 id="heading-1">Heading From React JS</h1>
-                    <h1 id="heading-2">Heading From React JS 2</h1>
-                </div>
+const reactElement = (
+  <div>
+    <h1 id="heading-1"> React Element Heading 1</h1>
+    <h1 id="heading-2">React Element Heading 2</h1>
+  </div>
+);
+
+const AnotherReactComponent = () => (<div>May Nested Component Hu</div>);
+
+const MainReactComponent = () => (
+  <div>
+    <h1 id="heading-1">React Component Heading 1</h1>
+    <h1 id="heading-2">React Component Heading 2</h1>
+    <AnotherReactComponent /> {/* Nested React Component also known as Componetn Composition */}
+    { reactElement } {/* React Element is rendered here */}
+  </div>
+); 
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-
-root.render(Parent);
+root.render(<MainReactComponent />);
