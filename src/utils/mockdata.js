@@ -28,7 +28,7 @@ export const ResData = [
     id: 2,
     name: "Sushi World",
     cuisine: "Japanese",
-    rating: 4.8,
+    rating: 3.9,
     location: "Bandra",
     menu: [
       {
@@ -46,6 +46,31 @@ export const ResData = [
         category: "Appetizer",
         is_veg: true,
         image_url: "https://th.bing.com/th/id/OIP.RLvyCCBHdJwsKU6Ih5HiUQHaLH?r=0&rs=1&pid=ImgDetMain"
+      }
+    ]
+  },
+  {
+    id: 3,
+    name: "Shezwan Corner",
+    cuisine: "Chinese",
+    rating: 4.8,
+    location: "Andheri East",
+    menu: [
+      {
+        item_id: 586,
+        name: "Chowmein",
+        price: 240,
+        category: "Main Course",
+        is_veg: true,
+        image_url: "https://img.freepik.com/premium-photo/3d-photo-delicious-chowmein-noodles-illustration-made-with-generative-ai_999340-8639.jpg"
+      },
+      {
+        item_id: 587,
+        name: "Chilli Chicken",
+        price: 280,
+        category: "Main Course",
+        is_veg: false,
+        image_url: "https://th.bing.com/th/id/OIP.3ZvWx0y6PENPJSGMMZEEggHaEK?r=0&rs=1&pid=ImgDetMain"
       }
     ]
   }
