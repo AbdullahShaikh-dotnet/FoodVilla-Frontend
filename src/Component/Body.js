@@ -24,7 +24,7 @@ const Body = () => {
         json.data.cards[1].card.card.gridElements.infoWithStyle.restaurants
       );
     } catch (error) {
-      console.error("Error fetching restaurant data:", error);
+      console.log("Error fetching restaurant data:", error);
     }
   };
 
@@ -35,19 +35,23 @@ const Body = () => {
     setRestaurant(filteredList);
   };
 
-  return isLoading ? <Shimmer /> : (
-    <div className="body">
+  return isLoading ? (
+    <Shimmer />
+  ) : (
+    <div>
       <div className="search">
         <input type="text" placeholder="Search" />
         <button className="btn" onClick={() => filterTopRatedRestaurants()}>
           Top Rated Restaurants
         </button>
       </div>
-      {restaurants.map((restaurant) =>
-        restaurant.menu.map((item, index) =>
-          renderRestaurantCard(restaurant, item, index)
-        )
-      )}
+      <div className="body">
+        {restaurants.map((restaurant) =>
+          restaurant.menu.map((item, index) =>
+            renderRestaurantCard(restaurant, item, index)
+          )
+        )}
+      </div>
     </div>
   );
 };
