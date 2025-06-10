@@ -1,13 +1,15 @@
 :root {
-  --primary-color: #000;
-  --secondary-color: #616161;
-  --hover-color: #ff0000;
+  --primary-color: #2d3436;
+  --secondary-color: #636e72;
+  --accent-color: #00b894;
+  --hover-color: #00cec9;
   --shadow-color: rgba(0, 0, 0, 0.1);
-  --card-shadow: 0 2px 4px var(--shadow-color);
-  --spacing-sm: 5px;
-  --spacing-md: 10px;
-  --spacing-lg: 20px;
-  --border-radius: 8px;
+  --card-shadow: 0 4px 6px var(--shadow-color);
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --border-radius: 12px;
+  --transition: all 0.3s ease;
 }
 
 /* Header Styles */
@@ -15,31 +17,25 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border: 1px solid var(--primary-color);
-  padding: 0 var(--spacing-lg);
-  flex-wrap: wrap;
+  padding: var(--spacing-md) var(--spacing-lg);
+  background-color: white;
+  box-shadow: 0 2px 4px var(--shadow-color);
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
 .logo-container {
-  width: 100px;
-  height: 100px;
+  width: 80px;
+  height: 30px;
 }
 
 .logo-container img {
-  width: 50%;
-  height: 50%;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
-  object-position: center;
   border-radius: 50%;
-  padding: var(--spacing-md);
-  margin: var(--spacing-md);
-  transition: all 0.3s ease;
-  cursor: pointer;
-}
-
-.logo-container img:hover {
-  transform: scale(1.1);
-  box-shadow: 0 0 5px 0 var(--shadow-color);
+  transition: var(--transition);
 }
 
 /* Navigation Styles */
@@ -50,198 +46,197 @@
 }
 
 .nav-items ul {
-  list-style-type: none;
   display: flex;
-  gap: var(--spacing-lg);
-  padding: 0;
+  gap: var(--spacing-sm);
+  list-style: none;
   margin: 0;
+  padding: 0;
 }
 
 .nav-items ul li {
+  font-weight: 500;
   cursor: pointer;
-  transition: color 0.3s ease;
+  transition: var(--transition);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--border-radius);
 }
 
 .nav-items ul li:hover {
-  color: var(--hover-color);
+  color: var(--accent-color);
+  background-color: rgba(0, 184, 148, 0.1);
 }
 
-/* Input Styles */
-input {
-  padding: var(--spacing-md);
-  border: 1px solid var(--secondary-color);
-  border-radius: var(--border-radius);
-  font-size: 16px;
-  width: 100%;
-  max-width: 400px;
-  transition: all 0.3s ease;
-  outline: none;
-  background-color: #fff;
-}
-
-input:focus {
-  border-color: var(--primary-color);
-  box-shadow: 0 0 0 2px var(--shadow-color);
-}
-
-input:hover {
-  border-color: var(--primary-color);
-}
-
-input::placeholder {
-  color: var(--secondary-color);
-  opacity: 0.7;
-}
-
-/* Search Container Specific Styles */
+/* Search Section */
 .search {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
-  margin: var(--spacing-md) 0;
-  border: 1px solid var(--secondary-color);
+  gap: var(--spacing-md);
   padding: var(--spacing-lg);
-  width: 100%;
-  background-color: #f8f8f8;
+  background-color: white;
+  margin: var(--spacing-lg) auto;
+  max-width: 1200px;
   border-radius: var(--border-radius);
+  /* box-shadow: var(--card-shadow); */
 }
 
 .search input {
-  margin-bottom: var(--spacing-md);
+  padding: var(--spacing-md);
+  border: 2px solid #e0e0e0;
+  border-radius: var(--border-radius);
+  font-size: 16px;
+  width: 100%;
+  max-width: 400px;
+  transition: var(--transition);
+}
+
+.search input:focus {
+  border-color: var(--accent-color);
+  outline: none;
+}
+
+.btn {
+  padding: var(--spacing-md) var(--spacing-lg);
+  background-color: var(--accent-color);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-weight: 600;
+  transition: var(--transition);
+}
+
+.btn:hover {
+  background-color: var(--hover-color);
+  transform: translateY(-2px);
 }
 
 /* Restaurant Card Styles */
-.restaurant-card {
-  width: 200px;
-  min-height: 300px;
+.body {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--spacing-lg);
   padding: var(--spacing-lg);
-  margin: var(--spacing-lg);
-  background-color: #fff;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.restaurant-card {
+  background: white;
   border-radius: var(--border-radius);
+  overflow: hidden;
   box-shadow: var(--card-shadow);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: var(--transition);
 }
 
 .restaurant-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 4px 8px var(--shadow-color);
+  box-shadow: 0 8px 16px var(--shadow-color);
 }
 
 .restaurant-image {
   width: 100%;
   height: 200px;
   object-fit: cover;
-  border-radius: var(--border-radius);
-  transition: transform 0.3s ease;
 }
 
-.restaurant-image:hover {
-  transform: scale(1.05);
+.restaurant-info {
+  padding: var(--spacing-md);
 }
 
-/* Footer Styles */
-.footer {
-  display: flex;
-  justify-content: center;
+.restaurant-info h3 {
+  margin: 0 0 var(--spacing-sm);
+  color: var(--primary-color);
+  font-size: 1.2rem;
+}
+
+.restaurant-info p {
+  margin: var(--spacing-sm) 0;
+  color: var(--secondary-color);
+  font-size: 0.9rem;
+}
+
+.rating {
+  display: inline-flex;
   align-items: center;
-  flex-direction: column;
-  padding: var(--spacing-lg);
+  gap: 4px;
+  padding: 4px 8px;
+  background-color: #e8f5e9;
+  color: #2e7d32;
+  border-radius: 16px;
+  font-weight: 600;
 }
 
-/* Body Layout */
-.body {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: var(--spacing-sm);
-  margin: var(--spacing-lg);
-  padding: 0 var(--spacing-lg);
-}
-
+/* Shimmer Effect */
 .shimmer {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: var(--spacing-sm);
-  margin: var(--spacing-lg);
-  padding: 0 var(--spacing-lg);
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--spacing-lg);
+  padding: var(--spacing-lg);
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 .shimmer-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: var(--spacing-sm);
-  margin: var(--spacing-lg);
-  padding: 0 var(--spacing-lg);
-  background-color: #f8f8f8;
-  width: 200px;
-  min-height: 300px;
+  background: white;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+  padding: var(--spacing-md);
 }
 
 .shimmer-image {
   width: 100%;
-  height: 150px;
-  background-color: #fff;
+  height: 200px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
   border-radius: var(--border-radius);
-  margin: var(--spacing-md);
-  margin-top: var(--spacing-lg);
 }
 
 .shimmer-content {
-  width: 100%;
-  height: 10px;
-  background-color: #fff;
-  border-radius: var(--border-radius);
-  margin: var(--spacing-sm);
-  margin-top: var(--spacing-md);
+  height: 16px;
+  margin: var(--spacing-md) 0;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
 }
 
-/* Media Queries */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Responsive Design */
 @media screen and (max-width: 768px) {
   .heading {
+    flex-direction: column;
+    gap: var(--spacing-md);
+  }
+
+  .search {
     flex-direction: column;
     padding: var(--spacing-md);
   }
 
-  .nav-items {
-    width: 100%;
-    margin-top: var(--spacing-md);
-  }
-
-  .nav-items ul {
-    flex-direction: column;
-    align-items: center;
-    gap: var(--spacing-md);
-  }
-
-  .logo-container {
-    margin: 0 auto;
-  }
-
-  .restaurant-card {
-    width: calc(100% - 40px);
-    margin: var(--spacing-md);
+  .body {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    padding: var(--spacing-md);
   }
 }
 
 @media screen and (max-width: 480px) {
-  .heading {
-    padding: var(--spacing-sm);
-  }
-
-  .logo-container {
-    width: 80px;
-    height: 80px;
-  }
-
   .nav-items ul {
-    gap: var(--spacing-sm);
+    flex-direction: column;
+    align-items: center;
   }
 
   .body {
-    margin: var(--spacing-sm);
-    padding: 0 var(--spacing-sm);
+    grid-template-columns: 1fr;
   }
 }
