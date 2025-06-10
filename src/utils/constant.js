@@ -1,1 +1,1 @@
-export const LOGO_URL = `https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png`;
+export const LOGO_URL = "../src/assets/logo.png";

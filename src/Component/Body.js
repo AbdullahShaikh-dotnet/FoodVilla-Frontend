@@ -1,71 +1,84 @@
 import RestaurantCard from "./RestaurantCard";
-import { ResData } from "../utils/mockdata";
 import { useState, useEffect } from "react";
 import Shimmer from "./Shimmer";
 
 const Body = () => {
-  const [restaurants, setRestaurant] = useState(ResData);
-  const [isLoading, setIsLoading] = useState(true);
+  const [restaurants, setRestaurant] = useState([]);
+  const [filteredRestaurants, setFilteredRestaurant] = useState([]);
+  const [searchText, setSearchText] = useState("");
 
   useEffect(() => {
     fetchRestaurantData();
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);
   }, []);
 
   const fetchRestaurantData = async () => {
     try {
       const response = await fetch(
-        "https://www.swiggy.com/dapi/restaurants/list/v5?lat=19.0759837&lng=72.8776559"
+        `https://www.swiggy.com/dapi/restaurants/list/v5?lat=19.0759837&lng=72.8776559`
       );
       const json = await response.json();
-      console.log(
-        json.data.cards[1].card.card.gridElements.infoWithStyle.restaurants
-      );
+
+      const restaurants =
+        json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
+          ?.restaurants;
+
+      setRestaurant(restaurants);
+      setFilteredRestaurant(restaurants);
+
     } catch (error) {
       console.log("Error fetching restaurant data:", error);
     }
   };
 
-  const filterTopRatedRestaurants = (minRating = 4.5) => {
-    const filteredList = ResData.filter(
-      (restaurant) => restaurant.rating >= minRating
+  const filterTopRatedRestaurants = (minRating = 4.6) => {
+    const filteredList = filteredRestaurants.filter(
+      (restaurant) => restaurant.info.avgRating >= minRating
     );
-    setRestaurant(filteredList);
+    setFilteredRestaurant(filteredList);
   };
 
-  return isLoading ? (
+  const searchRestaurants = (searchWord) => {
+    const searchFilteredRestaurants = restaurants.filter((res) =>
+      res?.info.name.toLowerCase().includes(searchWord.toLowerCase())
+    );
+    setFilteredRestaurant(searchFilteredRestaurants);
+  };
+
+  return filteredRestaurants.length === 0 ? (
     <Shimmer />
   ) : (
     <div>
       <div className="search">
-        <input type="text" placeholder="Search" />
+        <input
+          type="text"
+          placeholder="Search"
+          value={searchText}
+          onChange={(e) => setSearchText(e.target.value)}
+        />
+        <button
+          className="btn"
+          onClick={() => searchRestaurants(searchText)}
+        >
+          Search
+        </button>
         <button className="btn" onClick={() => filterTopRatedRestaurants()}>
-          Top Rated Restaurants
+          Top Rated ⭐
         </button>
       </div>
       <div className="body">
-        {restaurants.map((restaurant) =>
-          restaurant.menu.map((item, index) =>
-            renderRestaurantCard(restaurant, item, index)
-          )
+        {filteredRestaurants.map((restaurant) =>
+            renderRestaurantCard(restaurant)
         )}
       </div>
     </div>
   );
 };
 
-const renderRestaurantCard = (restaurant, item, index) => {
+const renderRestaurantCard = (restaurant) => {
   return (
     <RestaurantCard
-      key={restaurant.id + index}
-      restaurantName={restaurant.name}
-      rating={restaurant.rating}
-      cuisines={restaurant.cuisine}
-      dishName={item.name}
-      price={item.price}
-      imageUrl={item.image_url}
+      key={restaurant?.info?.id}
+      restaurantInfo={restaurant?.info}
     />
   );
 };

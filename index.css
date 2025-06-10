@@ -66,6 +66,11 @@
   background-color: rgba(0, 184, 148, 0.1);
 }
 
+.nav-items-active {
+  color: var(--accent-color);
+  background-color: rgba(0, 184, 148, 0.1);
+}
+
 /* Search Section */
 .search {
   display: flex;
@@ -165,6 +170,13 @@
   color: #2e7d32;
   border-radius: 16px;
   font-weight: 600;
+}
+
+.restaurant-name-rating,
+.restaurant-costfortwo-deliverytime {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 /* Shimmer Effect */
