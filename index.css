@@ -275,3 +275,419 @@
     grid-template-columns: 1fr;
   }
 }
+
+.restaurant-menu {
+  max-width: 1200px;
+  margin: var(--spacing-lg) auto;
+  padding: var(--spacing-lg);
+}
+
+.menu-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-lg);
+  padding-bottom: var(--spacing-md);
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.menu-header h2 {
+  color: var(--primary-color);
+  font-size: 1.8rem;
+  margin: 0;
+}
+
+.menu-categories {
+  display: flex;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+  overflow-x: auto;
+  padding: var(--spacing-sm) 0;
+}
+
+.category-button {
+  padding: var(--spacing-sm) var(--spacing-md);
+  background-color: white;
+  border: 1px solid #e0e0e0;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: var(--transition);
+  white-space: nowrap;
+}
+
+.category-button:hover,
+.category-button.active {
+  background-color: var(--accent-color);
+  color: white;
+  border-color: var(--accent-color);
+}
+
+.menu-items {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--spacing-lg);
+}
+
+.menu-item {
+  background: white;
+  border-radius: var(--border-radius);
+  padding: var(--spacing-md);
+  box-shadow: var(--card-shadow);
+  transition: var(--transition);
+}
+
+.menu-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px var(--shadow-color);
+}
+
+.menu-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--spacing-sm);
+}
+
+.menu-item-name {
+  color: var(--primary-color);
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.menu-item-price {
+  color: var(--accent-color);
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.menu-item-description {
+  color: var(--secondary-color);
+  font-size: 0.9rem;
+  margin-bottom: var(--spacing-md);
+}
+
+.menu-item-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.add-to-cart {
+  padding: var(--spacing-sm) var(--spacing-md);
+  background-color: var(--accent-color);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-weight: 600;
+  transition: var(--transition);
+}
+
+.add-to-cart:hover {
+  background-color: var(--hover-color);
+  transform: translateY(-1px);
+}
+
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.quantity-button {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid var(--accent-color);
+  background-color: white;
+  color: var(--accent-color);
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.quantity-button:hover {
+  background-color: var(--accent-color);
+  color: white;
+}
+
+.quantity {
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  .restaurant-menu {
+    padding: var(--spacing-md);
+  }
+
+  .menu-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-md);
+  }
+
+  .menu-items {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .menu-categories {
+    padding-bottom: var(--spacing-sm);
+  }
+
+  .category-button {
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-size: 0.9rem;
+  }
+}
+
+/* Restaurant Menu Styles */
+.restaurant-menu-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--spacing-lg);
+  background: linear-gradient(to bottom, #f8f9fa, #ffffff);
+}
+
+.restaurant-menu-header {
+  margin-bottom: var(--spacing-lg);
+  position: relative;
+}
+
+.restaurant-menu-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  align-items: center;
+  text-align: center;
+  padding: var(--spacing-lg);
+  background: white;
+  border-radius: var(--border-radius);
+  box-shadow: var(--card-shadow);
+}
+
+.restaurant-menu-name {
+  color: var(--primary-color);
+  font-size: 2.5rem;
+  margin: 0;
+  font-weight: 700;
+  background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.restaurant-menu-image {
+  width: 100%;
+  max-width: 600px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: var(--border-radius);
+  box-shadow: var(--card-shadow);
+  transition: transform 0.3s ease;
+}
+
+.restaurant-menu-image:hover {
+  transform: scale(1.02);
+}
+
+.menu-section-title {
+  color: var(--primary-color);
+  font-size: 2rem;
+  margin: var(--spacing-lg) 0;
+  padding-bottom: var(--spacing-sm);
+  border-bottom: 3px solid var(--accent-color);
+  position: relative;
+  display: inline-block;
+}
+
+.menu-section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 50%;
+  height: 3px;
+  background: var(--accent-color);
+  transition: width 0.3s ease;
+}
+
+.menu-section-title:hover::after {
+  width: 100%;
+}
+
+.menu-items-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.menu-item {
+  background: white;
+  border-radius: var(--border-radius);
+  padding: var(--spacing-md);
+  box-shadow: var(--card-shadow);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  position: relative;
+  overflow: hidden;
+}
+
+.menu-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--accent-color);
+  transform: scaleY(0);
+  transition: transform 0.3s ease;
+}
+
+.menu-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px var(--shadow-color);
+}
+
+.menu-item:hover::before {
+  transform: scaleY(1);
+}
+
+.menu-item-content {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--spacing-lg);
+}
+
+.menu-item-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.menu-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--spacing-md);
+}
+
+.menu-item-name {
+  color: var(--primary-color);
+  font-size: 1.3rem;
+  margin: 0;
+  flex: 1;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.menu-item:hover .menu-item-name {
+  color: var(--accent-color);
+}
+
+.menu-item-price {
+  color: var(--accent-color);
+  font-weight: 700;
+  font-size: 1.2rem;
+  margin: 0;
+  white-space: nowrap;
+  background: linear-gradient(45deg, var(--accent-color), var(--hover-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.menu-item-description-container {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) 0;
+  border-top: 1px dashed rgba(0, 0, 0, 0.1);
+}
+
+.menu-item-description {
+  color: var(--secondary-color);
+  font-size: 0.95rem;
+  margin: 0;
+  line-height: 1.5;
+  flex: 1;
+}
+
+.menu-item-image-container {
+  width: 150px;
+  height: 150px;
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--border-radius);
+}
+
+.menu-item-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--border-radius);
+  box-shadow: var(--card-shadow);
+  transition: transform 0.5s ease;
+}
+
+.menu-item:hover .menu-item-image {
+  transform: scale(1.1);
+}
+
+/* Responsive Design for Restaurant Menu */
+@media screen and (max-width: 768px) {
+  .restaurant-menu-container {
+    padding: var(--spacing-md);
+  }
+
+  .restaurant-menu-name {
+    font-size: 2rem;
+  }
+
+  .restaurant-menu-image {
+    height: 200px;
+  }
+
+  .menu-item-content {
+    flex-direction: column-reverse;
+  }
+
+  .menu-item-image-container {
+    width: 100%;
+    height: 200px;
+  }
+
+  .menu-item-description-container {
+    flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .restaurant-menu-name {
+    font-size: 1.8rem;
+  }
+
+  .restaurant-menu-image {
+    height: 180px;
+  }
+
+  .menu-item-image-container {
+    height: 180px;
+  }
+
+  .menu-item-name {
+    font-size: 1.2rem;
+  }
+
+  .menu-item-price {
+    font-size: 1.1rem;
+  }
+}
