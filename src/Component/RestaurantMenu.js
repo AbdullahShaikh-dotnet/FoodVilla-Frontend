@@ -1,13 +1,17 @@
 import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
+import { useParams } from "react-router";
+import { RESTAURANT_MENU_API_ENDPOINT } from "../utils/constant";
 
 const RestaurantMenu = () => {
   const [restaurantDetails, setRestaurantDetails] = useState(null);
 
+  const { id } = useParams();
+
   const fetchRestaurantDetailsData = async () => {
     const restaurantId = 296051;
     const data = await fetch(
-      `https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=12.9716&lng=77.5946&restaurantId=${restaurantId}`
+      RESTAURANT_MENU_API_ENDPOINT + id
     );
 
     const json = await data.json();
@@ -45,43 +49,43 @@ const RestaurantMenu = () => {
       <div className="restaurant-menu-content">
         <h2 className="menu-section-title">Menu</h2>
         <div className="menu-items-list">
-          {restaurantDetails?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1].card.card.itemCards.map(
+          {restaurantDetails?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card?.card?.itemCards?.map(
             (item) => {
-              let Info = item.card.info;
+              let Info = item?.card?.info;
               return (
-                <div className="menu-item" key={Info.id}>
+                <div className="menu-item" key={Info?.id}>
                   <div className="menu-item-content">
                     <div className="menu-item-info">
                       <div className="menu-item-header">
-                        <h3 className="menu-item-name">{Info.name}</h3>
+                        <h3 className="menu-item-name">{Info?.name}</h3>
                         <p className="menu-item-price">
-                          ₹ {Info.price / 100 || Info.defaultPrice / 100}
+                          ₹ {Info?.price / 100 || Info?.defaultPrice / 100}
                         </p>
                       </div>
-                      {Info.description && (
+                      {Info?.description && (
                         <div className="menu-item-description-container">
                           <p className="menu-item-description">
-                            {Info.description}
+                            {Info?.description}
                           </p>
                           <img
                             width={24}
                             height={24}
                             src={`https://packagingguruji.com/wp-content/uploads/2022/09/${
-                              Info.isVeg
+                              Info?.isVeg
                                 ? "Veg-Logo-2.png"
                                 : "Old-Non-Veg-Logo.png"
                             }`}
-                            alt={Info.isVeg ? "Vegetarian" : "Non-Vegetarian"}
+                            alt={Info?.isVeg ? "Vegetarian" : "Non-Vegetarian"}
                           />
                         </div>
                       )}
                     </div>
-                    {Info.imageId && (
+                    {Info?.imageId && (
                       <div className="menu-item-image-container">
                         <img
                           className="menu-item-image"
-                          src={`https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/${Info.imageId}`}
-                          alt={Info.name}
+                          src={`https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/${Info?.imageId}`}
+                          alt={Info?.name}
                         />
                       </div>
                     )}
