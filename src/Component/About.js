@@ -34,7 +34,7 @@ const About = () => {
                 </div>
                 <div className="about-author-section">
                     <h2>About the Author</h2>
-                    <AboutUser />
+                    {/* <AboutUser /> */}
                     <AboutUserClass name="Abdullah Khan" title="Frontend Developer" email="abdullah@email.com" />
                 </div>
             </div>
