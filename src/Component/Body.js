@@ -33,20 +33,20 @@ const Body = () => {
   };
 
   const filterTopRatedRestaurants = (minRating = 4.6) => {
-    const filteredList = filteredRestaurants.filter(
+    const filteredList = filteredRestaurants?.filter(
       (restaurant) => restaurant.info.avgRating >= minRating
     );
     setFilteredRestaurant(filteredList);
   };
 
   const searchRestaurants = (searchWord) => {
-    const searchFilteredRestaurants = restaurants.filter((res) =>
+    const searchFilteredRestaurants = restaurants?.filter((res) =>
       res?.info.name.toLowerCase().includes(searchWord.toLowerCase())
     );
     setFilteredRestaurant(searchFilteredRestaurants);
   };
 
-  return filteredRestaurants.length === 0 ? (
+  return filteredRestaurants?.length === 0 ? (
     <Shimmer />
   ) : (
     <div>
@@ -68,8 +68,8 @@ const Body = () => {
         </button>
       </div>
       <div className="body">
-        {filteredRestaurants.map((restaurant) =>
-            renderRestaurantCard(restaurant)
+        {filteredRestaurants?.map((restaurant) =>
+          renderRestaurantCard(restaurant)
         )}
       </div>
     </div>
@@ -79,9 +79,9 @@ const Body = () => {
 const renderRestaurantCard = (restaurant) => {
   return (
     <Link className="restaurant-card-link" to={`restaurant/${restaurant?.info?.id}`} key={restaurant?.info?.id}>
-    <RestaurantCard
-      restaurantInfo={restaurant?.info}
-    />
+      <RestaurantCard
+        restaurantInfo={restaurant?.info}
+      />
     </Link>
   );
 };
