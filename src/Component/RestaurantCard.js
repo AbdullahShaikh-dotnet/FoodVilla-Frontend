@@ -1,8 +1,6 @@
 const RestaurantCard = (prop) => {
   const { restaurantInfo } = prop;
-  const { name, avgRating, cuisines, costForTwo, cloudinaryImageId, sla } =
-    restaurantInfo;
-  console.log(restaurantInfo);
+  const { name, avgRating, cuisines, costForTwo, cloudinaryImageId, sla } = restaurantInfo;
   return (
     <div className="restaurant-card">
       <img
