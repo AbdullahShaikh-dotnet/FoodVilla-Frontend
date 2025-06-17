@@ -1,4 +1,13 @@
+import { useEffect } from "react";
+
 const AboutUser = () => {
+
+    useEffect(() => {
+        setInterval(() => {
+            console.log("Use Effect");
+        }, 1000);
+    });
+
     return (
         <div className="about-user-container">
             <div className="user-card">
