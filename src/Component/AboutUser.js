@@ -3,9 +3,13 @@ import { useEffect } from "react";
 const AboutUser = () => {
 
     useEffect(() => {
-        setInterval(() => {
+        const timer = setInterval(() => {
             console.log("Use Effect");
         }, 1000);
+
+        return () => {
+            clearInterval(timer);
+        }
     });
 
     return (
