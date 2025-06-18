@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import Shimmer from "./Shimmer";
 import { RESTAURANT_LIST_API_ENDPOINT } from "../utils/constant";
 import { Link } from "react-router";
+import useOnlineStatus from "../utils/useOnlineStatus";
 
 const Body = () => {
   const [restaurants, setRestaurant] = useState([]);
@@ -31,6 +32,12 @@ const Body = () => {
       console.log("Error fetching restaurant data:", error);
     }
   };
+
+
+  const onlineStatus = useOnlineStatus();
+  if(!onlineStatus){
+    return(<h1>Offline</h1>)
+  }
 
   const filterTopRatedRestaurants = (minRating = 4.6) => {
     const filteredList = filteredRestaurants?.filter(
