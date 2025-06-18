@@ -1,37 +1,16 @@
-import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
 import { useParams } from "react-router";
-import { RESTAURANT_MENU_API_ENDPOINT } from "../utils/constant";
+import useRestaurantMenu from "../utils/useRestaurantMenu";
 
 const RestaurantMenu = () => {
-  const [restaurantDetails, setRestaurantDetails] = useState(null);
-
   const { id } = useParams();
 
-  const fetchRestaurantDetailsData = async () => {
-    const restaurantId = 296051;
-    const data = await fetch(
-      RESTAURANT_MENU_API_ENDPOINT + id
-    );
-
-    const json = await data.json();
-    console.log(json);
-    setRestaurantDetails(json.data);
-  };
-
-  useEffect(() => {
-    fetchRestaurantDetailsData();
-  }, []);
+  const restaurantDetails = useRestaurantMenu(id);
 
   if (!restaurantDetails) return <Shimmer />;
 
   const { name, cloudinaryImageId } =
     restaurantDetails?.cards[2]?.card?.card?.info;
-
-  console.log(
-    restaurantDetails?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]
-      .card.card.itemCards
-  );
 
   return (
     <div className="restaurant-menu-container">
@@ -70,11 +49,10 @@ const RestaurantMenu = () => {
                           <img
                             width={24}
                             height={24}
-                            src={`https://packagingguruji.com/wp-content/uploads/2022/09/${
-                              Info?.isVeg
-                                ? "Veg-Logo-2.png"
-                                : "Old-Non-Veg-Logo.png"
-                            }`}
+                            src={`https://packagingguruji.com/wp-content/uploads/2022/09/${Info?.isVeg
+                              ? "Veg-Logo-2.png"
+                              : "Old-Non-Veg-Logo.png"
+                              }`}
                             alt={Info?.isVeg ? "Vegetarian" : "Non-Vegetarian"}
                           />
                         </div>
