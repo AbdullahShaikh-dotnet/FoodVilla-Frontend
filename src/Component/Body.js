@@ -1,56 +1,33 @@
 import RestaurantCard from "./RestaurantCard";
 import { useState, useEffect } from "react";
 import Shimmer from "./Shimmer";
-import { RESTAURANT_LIST_API_ENDPOINT } from "../utils/constant";
 import { Link } from "react-router";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import Offline from "./Offline";
+import useRestaurant from "../utils/useRestaurant";
 
 const Body = () => {
-  const [restaurants, setRestaurant] = useState([]);
-  const [filteredRestaurants, setFilteredRestaurant] = useState([]);
   const [searchText, setSearchText] = useState("");
-
-  useEffect(() => {
-    fetchRestaurantData();
-  }, []);
-
-  const fetchRestaurantData = async () => {
-    try {
-      const response = await fetch(
-        RESTAURANT_LIST_API_ENDPOINT
-      );
-      const json = await response.json();
-
-      const restaurants =
-        json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
-          ?.restaurants;
-
-      setRestaurant(restaurants);
-      setFilteredRestaurant(restaurants);
-
-    } catch (error) {
-      console.log("Error fetching restaurant data:", error);
-    }
-  };
-
+  const restaurants = useRestaurant();
+  let filteredRestaurants = restaurants;
 
   const onlineStatus = useOnlineStatus();
-  if(!onlineStatus){
-    return(<h1>Offline</h1>)
+  if (!onlineStatus) {
+    return <Offline />;
   }
 
   const filterTopRatedRestaurants = (minRating = 4.6) => {
     const filteredList = filteredRestaurants?.filter(
       (restaurant) => restaurant.info.avgRating >= minRating
     );
-    setFilteredRestaurant(filteredList);
+    filteredRestaurants = filteredList;
   };
 
   const searchRestaurants = (searchWord) => {
     const searchFilteredRestaurants = restaurants?.filter((res) =>
       res?.info.name.toLowerCase().includes(searchWord.toLowerCase())
     );
-    setFilteredRestaurant(searchFilteredRestaurants);
+    filteredRestaurants = searchFilteredRestaurants;
   };
 
   return filteredRestaurants?.length === 0 ? (
@@ -64,10 +41,7 @@ const Body = () => {
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
         />
-        <button
-          className="btn"
-          onClick={() => searchRestaurants(searchText)}
-        >
+        <button className="btn" onClick={() => searchRestaurants(searchText)}>
           Search
         </button>
         <button className="btn" onClick={() => filterTopRatedRestaurants()}>
@@ -85,10 +59,12 @@ const Body = () => {
 
 const renderRestaurantCard = (restaurant) => {
   return (
-    <Link className="restaurant-card-link" to={`restaurant/${restaurant?.info?.id}`} key={restaurant?.info?.id}>
-      <RestaurantCard
-        restaurantInfo={restaurant?.info}
-      />
+    <Link
+      className="restaurant-card-link"
+      to={`restaurant/${restaurant?.info?.id}`}
+      key={restaurant?.info?.id}
+    >
+      <RestaurantCard restaurantInfo={restaurant?.info} />
     </Link>
   );
 };
