@@ -1,4 +1,4 @@
-export const LOGO_URL = "../src/assets/logo.png";
+export const LOGO = "Logo.png";
 
 export const RESTAURANT_MENU_API_ENDPOINT = "https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=12.9716&lng=77.5946&restaurantId=";
 

@@ -21,7 +21,6 @@ const Body = () => {
   }
 
   const filterTopRatedRestaurants = (minRating = 4.6) => {
-    debugger;
     const filteredList = restaurants?.filter(
       restaurant => restaurant?.info?.avgRating >= minRating
     );

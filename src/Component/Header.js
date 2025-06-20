@@ -1,5 +1,4 @@
-import { LOGO_URL } from "../utils/constant";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link, useLocation } from "react-router";
 import useOnlineStatus from "../utils/useOnlineStatus";
 
@@ -8,10 +7,11 @@ const Header = () => {
   const location = useLocation();
   const currentPage = location.pathname;
 
+
   return (
     <div className="heading">
       <div className="logo-container">
-        <img src={LOGO_URL} alt="logo" />
+      <img src="/images/Logo.png" alt="Logo" style={{ width: '150px', height: 'auto' }} />
       </div>
       <div className="nav-items">
         <ul>
