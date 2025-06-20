@@ -8,8 +8,12 @@ import useRestaurant from "../utils/useRestaurant";
 
 const Body = () => {
   const [searchText, setSearchText] = useState("");
+  const [filteredRestaurants, setFilteredRestaurants] = useState([]);
   const restaurants = useRestaurant();
-  let filteredRestaurants = restaurants;
+
+  useEffect(() => {
+    setFilteredRestaurants(restaurants);
+  }, [restaurants]);
 
   const onlineStatus = useOnlineStatus();
   if (!onlineStatus) {
@@ -17,17 +21,18 @@ const Body = () => {
   }
 
   const filterTopRatedRestaurants = (minRating = 4.6) => {
-    const filteredList = filteredRestaurants?.filter(
-      (restaurant) => restaurant.info.avgRating >= minRating
+    debugger;
+    const filteredList = restaurants?.filter(
+      restaurant => restaurant?.info?.avgRating >= minRating
     );
-    filteredRestaurants = filteredList;
+    setFilteredRestaurants(filteredList);
   };
 
   const searchRestaurants = (searchWord) => {
     const searchFilteredRestaurants = restaurants?.filter((res) =>
       res?.info.name.toLowerCase().includes(searchWord.toLowerCase())
     );
-    filteredRestaurants = searchFilteredRestaurants;
+    setFilteredRestaurants(searchFilteredRestaurants);
   };
 
   return filteredRestaurants?.length === 0 ? (
