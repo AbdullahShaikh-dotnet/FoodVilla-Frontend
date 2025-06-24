@@ -10,10 +10,14 @@ import Shimmer from "./Component/Shimmer";
 
 const Body = lazy(() => import("./Component/Body"));
 
+const logo = lazy(() => import("../src/assets/logo.png"));
+
 const AppLayout = () => (
-  <div className="app">
+  <div className="bg-white min-h-screen">
     <Header />
-    <Outlet />
+    <main>
+      <Outlet />
+    </main>
   </div>
 );
 
