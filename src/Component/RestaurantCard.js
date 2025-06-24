@@ -3,7 +3,7 @@ const RestaurantCard = (prop) => {
   const { name, avgRating, cuisines, costForTwo, cloudinaryImageId, sla } =
     restaurantInfo;
   return (
-    <div className="bg-white rounded-lg overflow-hidden shadow-lg transition-transform duration-300 ease-in-out hover:-translate-y-1">
+    <div className="bg-white rounded-lg overflow-hidden shadow-md transition-transform duration-300 ease-in-out hover:-translate-y-1">
       <img
         className="w-full h-48 object-cover"
         src={`https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/${cloudinaryImageId}`}
