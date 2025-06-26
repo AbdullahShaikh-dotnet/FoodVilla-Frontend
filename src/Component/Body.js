@@ -1,4 +1,4 @@
-import RestaurantCard from "./RestaurantCard";
+import RestaurantCard, { withLabel } from "./RestaurantCard";
 import { useState, useEffect } from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router";
@@ -10,6 +10,7 @@ const Body = () => {
   const [searchText, setSearchText] = useState("");
   const [filteredRestaurants, setFilteredRestaurants] = useState([]);
   const restaurants = useRestaurant();
+  const RestaurantCardWithLabels = withLabel(RestaurantCard);
 
   useEffect(() => {
     setFilteredRestaurants(restaurants);
@@ -56,7 +57,7 @@ const Body = () => {
         >
           Search
         </button>
-        
+
         <button
           className="ml-4 bg-gray-200 text-gray-800 px-6 py-2 rounded-md hover:bg-gray-300 transition-colors duration-300"
           onClick={() => filterTopRatedRestaurants()}
@@ -73,9 +74,19 @@ const Body = () => {
             <Link
               to={`restaurant/${restaurant?.info?.id}`}
               key={restaurant?.info?.id}
-              className="transform hover:scale-105 transition-transform duration-300"
+              className="transition-transform duration-300 ease-in-out hover:-translate-y-1"
             >
-              <RestaurantCard key={restaurant?.info?.id} restaurantInfo={restaurant?.info} />
+              {restaurant?.info.isOpen ? (
+                <RestaurantCardWithLabels
+                  key={restaurant?.info?.id}
+                  restaurantInfo={restaurant?.info}
+                />
+              ) : (
+                <RestaurantCard
+                  key={restaurant?.info?.id}
+                  restaurantInfo={restaurant?.info}
+                />
+              )}
             </Link>
           ))}
         </div>
