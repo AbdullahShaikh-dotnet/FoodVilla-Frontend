@@ -39,7 +39,7 @@ const Body = () => {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-40 py-8">
       <div className="mb-8 p-4 bg-white rounded-lg shadow flex items-center justify-between">
         <div className="flex-grow">
           <input
