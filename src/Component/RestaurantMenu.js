@@ -1,6 +1,7 @@
 import Shimmer from "./Shimmer";
 import { useParams } from "react-router";
 import useRestaurantMenu from "../utils/useRestaurantMenu";
+import Accordian from "./Accordian";
 
 const RestaurantMenu = () => {
   const { id } = useParams();
@@ -18,11 +19,18 @@ const RestaurantMenu = () => {
     areaName,
   } = restaurantDetails?.cards[2]?.card?.card?.info;
 
-  console.log(restaurantDetails?.cards[2]?.card?.card?.info);
-
   const menuItems =
-    restaurantDetails?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card
-      ?.card?.itemCards;
+    restaurantDetails?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]
+      ?.card?.card?.itemCards;
+
+  const filteredCategories =
+    restaurantDetails?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter(
+      (c) =>
+        c?.card?.card["@type"] ===
+        "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
+    );
+
+  console.log(filteredCategories);
 
   return (
     <div className="bg-gray-100 min-h-screen">
@@ -51,6 +59,12 @@ const RestaurantMenu = () => {
           <p className="text-sm text-gray-500">Cost for two</p>
         </div>
       </div>
+
+
+      {filteredCategories.map((x, index) => {
+        return <Accordian key={x.card.card.title} data={x.card?.card} index={index} />;
+      })}
+
 
       <div className="max-w-4xl mx-auto mt-8 px-4 pb-8">
         <h2 className="text-3xl font-bold text-center mb-8 text-gray-800">
