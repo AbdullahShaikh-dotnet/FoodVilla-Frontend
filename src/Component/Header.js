@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router";
 import useOnlineStatus from "../utils/useOnlineStatus";
-import logo from "../assets/logo.png";
+
+const imageUrl = new URL('../assets/Logo.png', import.meta.url);
+
 
 const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -10,9 +12,9 @@ const Header = () => {
 
   return (
     <header className="bg-white shadow sticky top-0 z-50">
-      <nav className="container mx-auto px-6 py-4 flex justify-between items-center">
+      <nav className="container mx-auto px-6 flex justify-between items-center">
         <Link to="/">
-          <img src={logo} alt="Logo" className="w-32" />
+          <img src={imageUrl} alt="Logo" className="w-20" />
         </Link>
 
         <div className="flex items-center space-x-8">
