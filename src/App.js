@@ -7,6 +7,7 @@ import Error from "./Component/Error";
 import RestaurantMenu from "./Component/RestaurantMenu";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router";
 import Shimmer from "./Component/Shimmer";
+import Login from "./Component/Login";
 
 const Body = lazy(() => import("./Component/Body"));
 
@@ -44,6 +45,10 @@ const AppRouter = createBrowserRouter([
       {
         path: "/restaurant/:id",
         element: <RestaurantMenu />,
+      },
+            {
+        path: "/Login",
+        element: <Login />,
       },
     ],
   },
