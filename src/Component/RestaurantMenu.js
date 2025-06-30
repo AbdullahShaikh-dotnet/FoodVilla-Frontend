@@ -8,6 +8,7 @@ const RestaurantMenu = () => {
   const { id } = useParams();
   const restaurantDetails = useRestaurantMenu(id);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isOpenIndex, setIsOpenIndex] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -223,12 +224,16 @@ const RestaurantMenu = () => {
         </div>
 
         <div className="space-y-6">
-          {filteredCategories.map(x => (
-            <Accordian key={x.card.card.title} data={x.card?.card} />
+          {filteredCategories.map((x, index) => (
+            <Accordian key={x.card.card.title}
+              data={x.card?.card}
+              isOpen={index === isOpenIndex}
+              setIsOpen={() => setIsOpenIndex(!(index === isOpenIndex) ? index : null)}
+            />
           ))}
         </div>
       </div>
-      
+
 
       {/* Footer CTA */}
       <div className="bg-gradient-to-r from-orange-500 to-red-500 text-white py-16">

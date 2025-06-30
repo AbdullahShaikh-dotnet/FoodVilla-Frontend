@@ -1,11 +1,11 @@
 import { useState } from 'react';
 
-const Accordian = (Maindata) => {
-  let data = Maindata.data;
-  const [isOpen, setIsOpen] = useState(false);
+const Accordian = ({ data, isOpen, setIsOpen }) => {
+
+  // const [isOpen, setIsOpen] = useState(false);
 
   const toggleAccordion = () => {
-    setIsOpen(!isOpen);
+    setIsOpen();
   };
 
   return (
@@ -51,7 +51,7 @@ const Accordian = (Maindata) => {
 
       {/* Content */}
       <div
-        className={`overflow-hidden transition-all duration-500 ease-in-out ${isOpen ? 'max-h-[800px] opacity-100' : 'max-h-0 opacity-0'
+        className={`transition-all duration-500 ease-in-out ${isOpen ? 'opacity-100' : 'max-h-0 opacity-0'
           }`}
       >
         <div className="px-6 pb-6">
@@ -63,7 +63,7 @@ const Accordian = (Maindata) => {
             {data?.itemCards?.map((item, idx) => (
               <div
                 key={idx}
-                className="group/item bg-gray-50 rounded-xl p-4 hover:bg-white hover:shadow-sm transition-all duration-200 border border-transparent hover:border-gray-200"
+                className="group/item bg-white border border-gray-200 rounded-xl p-4 hover:border-orange-200 hover:bg-orange-50 hover:shadow-sm transition-all duration-200"
               >
                 <div className="flex space-x-4">
                   {/* Item Image */}
