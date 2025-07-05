@@ -8,16 +8,20 @@ import RestaurantMenu from "./Component/RestaurantMenu";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router";
 import Shimmer from "./Component/Shimmer";
 import Login from "./Component/Login";
+import { Provider } from "react-redux";
+import appStore from "./utils/appStore";
 
 const Body = lazy(() => import("./Component/Body"));
 
 const AppLayout = () => (
-  <div className="bg-white min-h-screen">
-    <Header />
-    <main>
-      <Outlet />
-    </main>
-  </div>
+  <Provider store={appStore}>
+    <div className="bg-white min-h-screen">
+      <Header />
+      <main>
+        <Outlet />
+      </main>
+    </div>
+  </Provider>
 );
 
 const AppRouter = createBrowserRouter([
@@ -46,7 +50,7 @@ const AppRouter = createBrowserRouter([
         path: "/restaurant/:id",
         element: <RestaurantMenu />,
       },
-            {
+      {
         path: "/Login",
         element: <Login />,
       },
