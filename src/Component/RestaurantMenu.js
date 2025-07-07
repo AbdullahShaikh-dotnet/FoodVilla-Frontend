@@ -3,6 +3,8 @@ import { useParams } from "react-router";
 import useRestaurantMenu from "../utils/useRestaurantMenu";
 import Accordian from "./Accordian";
 import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { addItems } from "../utils/cartSlice";
 
 const RestaurantMenu = () => {
   const { id } = useParams();
@@ -15,8 +17,8 @@ const RestaurantMenu = () => {
       setIsScrolled(window.scrollY > 100);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   if (!restaurantDetails) return <Shimmer />;
@@ -42,6 +44,12 @@ const RestaurantMenu = () => {
         c?.card?.card["@type"] ===
         "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
     );
+
+  const dispatch = useDispatch();
+
+  const handleAddtoCart = () => {
+    dispatch(addItems("abc"));
+  };
 
   return (
     <div className="bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen">
@@ -71,14 +79,30 @@ const RestaurantMenu = () => {
                 <span className="text-gray-300">({totalRatingsString})</span>
               </div>
               <div className="flex items-center space-x-2 bg-white/20 backdrop-blur-sm rounded-full px-4 py-2">
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
+                <svg
+                  className="w-4 h-4"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+                    clipRule="evenodd"
+                  />
                 </svg>
                 <span className="font-semibold">{areaName}</span>
               </div>
               <div className="flex items-center space-x-2 bg-white/20 backdrop-blur-sm rounded-full px-4 py-2">
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
+                <svg
+                  className="w-4 h-4"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
+                    clipRule="evenodd"
+                  />
                 </svg>
                 <span className="font-semibold">{sla?.deliveryTime} min</span>
               </div>
@@ -92,15 +116,29 @@ const RestaurantMenu = () => {
         {/* Floating Action Button */}
         <div className="absolute bottom-6 right-6">
           <button className="bg-orange-500 hover:bg-orange-600 text-white rounded-full p-4 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110">
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+              />
             </svg>
           </button>
         </div>
       </div>
 
       {/* Sticky Info Bar */}
-      <div className={`sticky top-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-white/95 backdrop-blur-md shadow-lg' : 'bg-white'}`}>
+      <div
+        className={`sticky top-0 z-50 transition-all duration-300 ${
+          isScrolled ? "bg-white/95 backdrop-blur-md shadow-lg" : "bg-white"
+        }`}
+      >
         <div className="max-w-7xl mx-auto px-4 py-4">
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div className="flex items-center space-x-6">
@@ -109,8 +147,16 @@ const RestaurantMenu = () => {
                 <span className="font-semibold text-gray-900">Open Now</span>
               </div>
               <div className="hidden md:flex items-center space-x-2 text-gray-600">
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
+                <svg
+                  className="w-4 h-4"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
+                    clipRule="evenodd"
+                  />
                 </svg>
                 <span>{sla?.deliveryTime} min delivery</span>
               </div>
@@ -124,7 +170,9 @@ const RestaurantMenu = () => {
                 <p className="text-xs text-gray-500">{totalRatingsString}</p>
               </div>
               <div className="text-center">
-                <p className="font-bold text-lg text-gray-900">{costForTwoMessage}</p>
+                <p className="font-bold text-lg text-gray-900">
+                  {costForTwoMessage}
+                </p>
                 <p className="text-xs text-gray-500">Cost for two</p>
               </div>
             </div>
@@ -174,8 +222,9 @@ const RestaurantMenu = () => {
                         <img
                           width={35}
                           height={20}
-                          src={`https://packagingguruji.com/wp-content/uploads/2022/09/${isVeg ? "Veg-Logo-2.png" : "Old-Non-Veg-Logo.png"
-                            }`}
+                          src={`https://packagingguruji.com/wp-content/uploads/2022/09/${
+                            isVeg ? "Veg-Logo-2.png" : "Old-Non-Veg-Logo.png"
+                          }`}
                           alt={isVeg ? "Vegetarian" : "Non-Vegetarian"}
                           className="rounded-full bg-white/20 backdrop-blur-sm shadow-xl"
                         />
@@ -200,7 +249,10 @@ const RestaurantMenu = () => {
                       </p>
                     )}
 
-                    <button className="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-4 rounded-xl transition-all duration-200 transform hover:scale-105 shadow-sm hover:shadow-md">
+                    <button
+                      onClick={handleAddtoCart}
+                      className="w-full cursor-pointer bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-4 rounded-xl transition-all duration-200 transform hover:scale-105 shadow-sm hover:shadow-md"
+                    >
                       Add to Cart
                     </button>
                   </div>
@@ -211,7 +263,6 @@ const RestaurantMenu = () => {
         </div>
       )}
 
-
       {/* Menu Categories */}
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="text-center mb-12">
@@ -219,21 +270,24 @@ const RestaurantMenu = () => {
             Explore Our Menu
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Discover our carefully curated selection of dishes, from traditional favorites to modern culinary creations
+            Discover our carefully curated selection of dishes, from traditional
+            favorites to modern culinary creations
           </p>
         </div>
 
         <div className="space-y-6">
           {filteredCategories.map((x, index) => (
-            <Accordian key={x.card.card.title}
+            <Accordian
+              key={x.card.card.title}
               data={x.card?.card}
               isOpen={index === isOpenIndex}
-              setIsOpen={() => setIsOpenIndex(!(index === isOpenIndex) ? index : null)}
+              setIsOpen={() =>
+                setIsOpenIndex(!(index === isOpenIndex) ? index : null)
+              }
             />
           ))}
         </div>
       </div>
-
 
       {/* Footer CTA */}
       <div className="bg-gradient-to-r from-orange-500 to-red-500 text-white py-16">
