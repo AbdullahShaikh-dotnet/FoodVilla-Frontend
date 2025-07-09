@@ -21,6 +21,12 @@ const RestaurantMenu = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const dispatch = useDispatch();
+
+  const handleAddtoCart = (item) => {
+    dispatch(addItems(item));
+  };
+
   if (!restaurantDetails) return <Shimmer />;
 
   const {
@@ -44,12 +50,6 @@ const RestaurantMenu = () => {
         c?.card?.card["@type"] ===
         "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
     );
-
-  const dispatch = useDispatch();
-
-  const handleAddtoCart = () => {
-    dispatch(addItems("abc"));
-  };
 
   return (
     <div className="bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen">
@@ -250,7 +250,7 @@ const RestaurantMenu = () => {
                     )}
 
                     <button
-                      onClick={handleAddtoCart}
+                      onClick={() => handleAddtoCart(item)}
                       className="w-full cursor-pointer bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-4 rounded-xl transition-all duration-200 transform hover:scale-105 shadow-sm hover:shadow-md"
                     >
                       Add to Cart
