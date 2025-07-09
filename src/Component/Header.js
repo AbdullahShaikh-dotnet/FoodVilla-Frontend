@@ -12,6 +12,8 @@ const Header = () => {
 
   const cartItems = useSelector((store) => store.cart.items);
 
+  console.log(cartItems);
+
   return (
     <header className="bg-white shadow sticky top-0 z-50">
       <nav className="container mx-auto px-6 flex justify-between items-center">
