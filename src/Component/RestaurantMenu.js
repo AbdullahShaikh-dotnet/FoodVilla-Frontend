@@ -276,14 +276,15 @@ const RestaurantMenu = () => {
         </div>
 
         <div className="space-y-6">
-          {filteredCategories.map((x, index) => (
+          {filteredCategories.map((CategoryItems, index) => (
             <Accordian
-              key={x.card.card.title}
-              data={x.card?.card}
+              key={CategoryItems.card.card.title}
+              data={CategoryItems.card?.card}
               isOpen={index === isOpenIndex}
               setIsOpen={() =>
                 setIsOpenIndex(!(index === isOpenIndex) ? index : null)
               }
+               addToCart={handleAddtoCart}
             />
           ))}
         </div>
