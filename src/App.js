@@ -10,6 +10,7 @@ import Shimmer from "./Component/Shimmer";
 import Login from "./Component/Login";
 import { Provider } from "react-redux";
 import appStore from "./utils/appStore";
+import Cart from "./Component/Cart";
 
 const Body = lazy(() => import("./Component/Body"));
 
@@ -53,6 +54,10 @@ const AppRouter = createBrowserRouter([
       {
         path: "/Login",
         element: <Login />,
+      },
+            {
+        path: "/Cart",
+        element: <Cart />,
       },
     ],
   },
