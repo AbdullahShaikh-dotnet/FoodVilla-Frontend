@@ -1,17 +1,12 @@
 import { useSelector, useDispatch } from "react-redux";
-import { clearCart } from "../utils/cartSlice";
+import { clearCart, removeItem } from "../utils/cartSlice";
 
 const Cart = () => {
-  
   const cartItems = useSelector((store) => store.cart.items);
   const dispatch = useDispatch();
 
-  // Calculate total price
-  const total = cartItems.reduce(
-    (sum, item) =>
-      sum + (item.price ? item.price / 100 : item.defaultPrice / 100 || 0),
-    0
-  );
+  const getImageUrl = (imageId) =>
+    `https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_80/${imageId}`;
 
   const cartDataMap = {};
 
@@ -25,7 +20,7 @@ const Cart = () => {
         defaultPrice: item.card.info.defaultPrice
           ? item.card.info.defaultPrice / 100
           : 0,
-        Image: `https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_80/${item.card.info.imageId}`,
+        Image: getImageUrl(item.card.info.imageId),
         quantity: 1,
       };
     } else {
@@ -35,15 +30,12 @@ const Cart = () => {
 
   const cartData = Object.values(cartDataMap);
 
-  cartDataMap.totalPrice = cartData
+  const cartTotal = cartData
     .reduce(
       (sum, item) => sum + (item.price || item.defaultPrice) * item.quantity,
       0
     )
     .toFixed(2);
-
-  console.log(cartDataMap);
-  // console.log(cartItems);
 
   return (
     <div className="min-h-[80vh] flex flex-col items-center py-10 px-2">
@@ -51,7 +43,7 @@ const Cart = () => {
         <h1 className="text-3xl font-bold text-gray-800 mb-6 text-center">
           Your Cart
         </h1>
-        {cartItems.length === 0 ? (
+        {cartData.length === 0 ? (
           <div className="text-center py-16">
             <svg
               className="mx-auto h-16 w-16 text-gray-300 mb-4"
@@ -75,7 +67,7 @@ const Cart = () => {
           </div>
         ) : (
           <>
-            <ul className="divide-y divide-gray-100 mb-6">
+            <ul className="divide-y divide-gray-100 mb-6 h-[50vh] pr-10 overflow-y-auto">
               {cartData.map((item) => (
                 <li key={item.id} className="flex items-center py-4">
                   {
@@ -109,14 +101,30 @@ const Cart = () => {
                     >
                       +
                     </button>
+
+                    <button onClick={() => dispatch(removeItem(item.id))}
+                      className="cursor-pointer text-red-700
+                     font-semibold p-2 py-0 rounded-md transition-colors duration-200"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="18"
+                        height="18"
+                        fill="currentColor"
+                        viewBox="0 0 16 16"
+                      >
+                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
+                        <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
+                      </svg>
+                    </button>
                   </div>
                 </li>
               ))}
             </ul>
             <div className="flex justify-between items-center mb-6">
               <span className="text-lg font-bold text-gray-800">Total:</span>
-              <span className="text-xl font-bold text-orange-600">
-                ₹{cartDataMap.totalPrice}
+              <span className="text-xl font-bold text-orange-600 pr-10">
+                ₹{cartTotal}
               </span>
             </div>
             <div className="flex gap-4">
