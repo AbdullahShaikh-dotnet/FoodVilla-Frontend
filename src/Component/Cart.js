@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { clearCart, removeItem } from "../utils/cartSlice";
+import { clearCart, removeItem, incrementQuantity, decrementQuantity } from "../utils/cartSlice";
 
 const Cart = () => {
   const cartItems = useSelector((store) => store.cart.items);
@@ -21,7 +21,7 @@ const Cart = () => {
           ? item.card.info.defaultPrice / 100
           : 0,
         Image: getImageUrl(item.card.info.imageId),
-        quantity: 1,
+        quantity: Number(item?.quantity),
       };
     } else {
       cartDataMap[id].quantity += 1;
@@ -86,7 +86,7 @@ const Cart = () => {
                     </p>
                   </div>
                   <div className="flex items-center gap-2">
-                    <button
+                    <button onClick={() => dispatch(decrementQuantity(item.id))}
                       className="border cursor-pointer border-gray-300 hover:bg-gray-50 text-gray-700
                      font-semibold p-2 py-0 rounded-md transition-colors duration-200"
                     >
@@ -95,7 +95,7 @@ const Cart = () => {
                     <span className="text-gray-500 text-sm px-2">
                       {item.quantity}
                     </span>
-                    <button
+                    <button onClick={() => dispatch(incrementQuantity(item.id))}
                       className="border cursor-pointer border-gray-300 hover:bg-gray-50 text-gray-700
                      font-semibold p-2 py-0 rounded-md transition-colors duration-200"
                     >
