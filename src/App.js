@@ -11,6 +11,7 @@ import Login from "./Component/Login";
 import { Provider } from "react-redux";
 import appStore from "./utils/appStore";
 import Cart from "./Component/Cart";
+import Alert from "./Component/Alert";
 
 const Body = lazy(() => import("./Component/Body"));
 
@@ -21,6 +22,9 @@ const AppLayout = () => (
       <main>
         <Outlet />
       </main>
+      <div className="w-100 relative bottom-5 left-280">
+        <Alert />
+      </div>
     </div>
   </Provider>
 );
@@ -55,7 +59,7 @@ const AppRouter = createBrowserRouter([
         path: "/Login",
         element: <Login />,
       },
-            {
+      {
         path: "/Cart",
         element: <Cart />,
       },
