@@ -1,41 +1,48 @@
 import { useSelector, useDispatch } from "react-redux";
-import { clearCart, removeItem, incrementQuantity, decrementQuantity } from "../utils/cartSlice";
+import { clearCart, removeItem, incrementQuantity, decrementQuantity, updateItemQuantity } from "../utils/cartSlice";
 
 const Cart = () => {
+
+
   const cartItems = useSelector((store) => store.cart.items);
   const dispatch = useDispatch();
 
   const getImageUrl = (imageId) =>
     `https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_80/${imageId}`;
 
-  const cartDataMap = {};
+  // cartItems now contains unique items with quantity
+  const cartData = cartItems.map((item) => ({
+    id: item.card.info.id,
+    name: item.card.info.name,
+    price: item.card.info.price ? item.card.info.price / 100 : 0,
+    defaultPrice: item.card.info.defaultPrice
+      ? item.card.info.defaultPrice / 100
+      : 0,
+    Image: getImageUrl(item.card.info.imageId),
+    quantity: Number(item?.quantity),
+  }));
 
-  cartItems.forEach((item) => {
-    const id = item.card.info.id;
-    if (!cartDataMap[id]) {
-      cartDataMap[id] = {
-        id,
-        name: item.card.info.name,
-        price: item.card.info.price ? item.card.info.price / 100 : 0,
-        defaultPrice: item.card.info.defaultPrice
-          ? item.card.info.defaultPrice / 100
-          : 0,
-        Image: getImageUrl(item.card.info.imageId),
-        quantity: Number(item?.quantity),
-      };
-    } else {
-      cartDataMap[id].quantity += 1;
-    }
-  });
-
-  const cartData = Object.values(cartDataMap);
 
   const cartTotal = cartData
     .reduce(
-      (sum, item) => sum + (item.price || item.defaultPrice) * item.quantity,
+      (sum, item) => sum + (item.price || item.defaultPrice) * (item.quantity || 1),
       0
     )
     .toFixed(2);
+
+
+  const handleItemQty = (e) => {
+    const quantityValue = Number(e.target.value);
+
+    if (quantityValue <= 1) {
+      alert(); 
+      return;
+    }
+
+    const itemID = e.target.dataset.itemid;
+    const quantity = e.target.value;
+    dispatch(updateItemQuantity([itemID, quantity]));
+  }
 
   return (
     <div className="min-h-[80vh] flex flex-col items-center py-10 px-2">
@@ -82,7 +89,7 @@ const Cart = () => {
                     <p className="text-gray-500 text-sm">
                       ₹
                       {(item.price ? item.price : item.defaultPrice) *
-                        item.quantity}
+                        (item.quantity || 1)}
                     </p>
                   </div>
                   <div className="flex items-center gap-2">
@@ -93,7 +100,8 @@ const Cart = () => {
                       -
                     </button>
                     <span className="text-gray-500 text-sm px-2">
-                      {item.quantity}
+                      <input data-itemid={item.id} type="text" maxLength={3} className="p-1 w-[40px] text-center align-middle border-b-2 border-orange-400"
+                        value={item.quantity} onChange={(e) => handleItemQty(e)} />
                     </span>
                     <button onClick={() => dispatch(incrementQuantity(item.id))}
                       className="border cursor-pointer border-gray-300 hover:bg-gray-50 text-gray-700
