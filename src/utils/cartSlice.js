@@ -7,8 +7,14 @@ const cartSlice = createSlice({
   },
   reducers: {
     addItems: (state, action) => {
-      let data = action.payload;
-      state.items.push(data);
+      const data = action.payload;
+      const id = data.card.info.id;
+      const existingItem = state.items.find((item) => item.card.info.id === id);
+      if (existingItem) {
+        existingItem.quantity = (existingItem.quantity || 1) + 1;
+      } else {
+        state.items.push({ ...data, quantity: 1 });
+      }
     },
 
     removeItem: (state, action) => {
@@ -20,29 +26,34 @@ const cartSlice = createSlice({
       state.items.length = 0;
     },
 
-    // Increment Item Quantity
     incrementQuantity: (state, action) => {
       const id = action.payload;
       const item = state.items.find((item) => item.card.info.id === id);
       if (item) {
-        item.quantity = (item.quantity || 1) + 1;
+        item.quantity = (Number(item.quantity) || 1) + 1;
       }
     },
 
-    // Decrement Item Quantity
     decrementQuantity: (state, action) => {
       const id = action.payload;
       const item = state.items.find((item) => item.card.info.id === id);
       if (!item) return;
-
-      if (item.quantity === 1) {
-        state.items = state.items.filter(
-          (i) => i.card.info.id !== item.card.info.id
-        );
+      if ((Number(item.quantity) || 1) <= 1) {
+        // Remove item if quantity drops to 0 or 1
+        state.items = state.items.filter((item) => item.card.info.id !== id);
       } else {
-        item.quantity = item.quantity - 1;
+        item.quantity -= 1;
       }
     },
+
+    updateItemQuantity: (state, action) => {
+      const [itemID, cartQuantity] = action.payload;
+      const storeItem = state.items.find(i => i.card.info.id === itemID);
+      if (!storeItem) return;
+      storeItem.quantity = Number(cartQuantity);
+    }
+
+
   },
 });
 
@@ -52,6 +63,7 @@ export const {
   clearCart,
   incrementQuantity,
   decrementQuantity,
+  updateItemQuantity,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;
