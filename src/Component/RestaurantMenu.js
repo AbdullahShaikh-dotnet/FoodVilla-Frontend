@@ -203,8 +203,7 @@ const RestaurantMenu = () => {
                 imageId,
                 isVeg,
               } = item?.card?.info;
-              item.quantity = 1;
-              
+
               return (
                 <div
                   key={id}
