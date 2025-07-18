@@ -1,12 +1,15 @@
 import { useSelector, useDispatch } from "react-redux";
-import { clearCart, removeItem, incrementQuantity, decrementQuantity, updateItemQuantity } from "../utils/cartSlice";
+import {
+  clearCart,
+  removeItem,
+  incrementQuantity,
+  decrementQuantity,
+  updateItemQuantity,
+} from "../utils/cartSlice";
 
 const Cart = () => {
-
-
   const cartItems = useSelector((store) => store.cart.items);
   const dispatch = useDispatch();
-
   const getImageUrl = (imageId) =>
     `https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_80/${imageId}`;
 
@@ -22,27 +25,24 @@ const Cart = () => {
     quantity: Number(item?.quantity),
   }));
 
-
   const cartTotal = cartData
     .reduce(
-      (sum, item) => sum + (item.price || item.defaultPrice) * (item.quantity || 1),
+      (sum, item) =>
+        sum + (item.price || item.defaultPrice) * (item.quantity || 1),
       0
     )
     .toFixed(2);
 
-
   const handleItemQty = (e) => {
-    const quantityValue = Number(e.target.value);
-
-    if (quantityValue <= 1) {
-      alert(); 
+    const regex = /^[1-9][0-9]?$/;
+    const qtyValue = e.target.value;
+    if (!regex.test(qtyValue)) {
       return;
     }
-
     const itemID = e.target.dataset.itemid;
-    const quantity = e.target.value;
+    const quantity = Number(qtyValue);
     dispatch(updateItemQuantity([itemID, quantity]));
-  }
+  };
 
   return (
     <div className="min-h-[80vh] flex flex-col items-center py-10 px-2">
@@ -87,30 +87,40 @@ const Cart = () => {
                   <div className="flex-1">
                     <h3 className="font-semibold text-gray-900">{item.name}</h3>
                     <p className="text-gray-500 text-sm">
-                      ₹
+                      {item.price ? item.price : item.defaultPrice} x{" "}
+                      {item.quantity || 1} = ₹
                       {(item.price ? item.price : item.defaultPrice) *
                         (item.quantity || 1)}
                     </p>
                   </div>
                   <div className="flex items-center gap-2">
-                    <button onClick={() => dispatch(decrementQuantity(item.id))}
+                    <button
+                      onClick={() => dispatch(decrementQuantity(item.id))}
                       className="border cursor-pointer border-gray-300 hover:bg-gray-50 text-gray-700
                      font-semibold p-2 py-0 rounded-md transition-colors duration-200"
                     >
                       -
                     </button>
                     <span className="text-gray-500 text-sm px-2">
-                      <input data-itemid={item.id} type="text" maxLength={3} className="p-1 w-[40px] text-center align-middle border-b-2 border-orange-400"
-                        value={item.quantity} onChange={(e) => handleItemQty(e)} />
+                      <input
+                        data-itemid={item.id}
+                        type="text"
+                        maxLength={3}
+                        className="p-1 w-[40px] text-center align-middle border-b-2 border-orange-400"
+                        value={item.quantity}
+                        onChange={(e) => handleItemQty(e)}
+                      />
                     </span>
-                    <button onClick={() => dispatch(incrementQuantity(item.id))}
+                    <button
+                      onClick={() => dispatch(incrementQuantity(item.id))}
                       className="border cursor-pointer border-gray-300 hover:bg-gray-50 text-gray-700
                      font-semibold p-2 py-0 rounded-md transition-colors duration-200"
                     >
                       +
                     </button>
 
-                    <button onClick={() => dispatch(removeItem(item.id))}
+                    <button
+                      onClick={() => dispatch(removeItem(item.id))}
                       className="cursor-pointer text-red-700
                      font-semibold p-2 py-0 rounded-md transition-colors duration-200"
                     >
