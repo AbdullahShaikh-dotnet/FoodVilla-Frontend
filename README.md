@@ -9,11 +9,8 @@ Your delicious journey starts here – this repository contains the modern, resp
 **FoodVilla** is a restaurant/product search and discovery app. This frontend delivers:
 
 - A dynamic, user-friendly catalog of restaurants and menu items  
-- Advanced filters (cuisine, rating, cost) for precise search  
 - Interactive UI with loading states, placeholder cards  
 - Responsive design for mobile, tablet, and desktop
-
-> _(*Link to backend / API documentation if available*)_
 
 ---
 
